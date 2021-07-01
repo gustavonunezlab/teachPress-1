@@ -106,6 +106,10 @@ class TP_Bibtex {
         return $string;
     }
 
+    public static function get_single_publication_apa ($row, $all_tags = '', $convert_bibtex = false) {
+        echo "APA PRIMEROS PASOS";
+    }
+
     /**
      * Replaces some BibTeX special chars with the UTF-8 versions and secures the input. 
      * Before teachPress 5.0, this function was called replace_bibtex_chars()
