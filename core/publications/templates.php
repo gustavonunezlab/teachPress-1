@@ -452,6 +452,11 @@ class TP_HTML_Publication_Template {
             $is_button = true;
         }
 
+        if ( $settings['show_apa'] === true ) {
+            $bibtex = self::get_info_button(__('APA','teachpress'), __('Show APA entry','teachpress'), 'bibtex', $container_id) . $separator;
+            $is_button = true;
+        }
+
         // link style
         if ( $settings['link_style'] === 'inline' || $settings['link_style'] === 'direct' ) {
             $tag_string = $abstract . $url . $bibtex . $altmetric . $tag_string ;
