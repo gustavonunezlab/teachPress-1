@@ -107,7 +107,71 @@ class TP_Bibtex {
     }
 
     public static function get_single_publication_apa ($row, $all_tags = '', $convert_bibtex = false) {
+        $string = '';
+        $pub_fields = array('type', 'bibtex', 'title', 'author', 'editor', 'url', 'doi', 'isbn', 'date', 'urldate', 'booktitle', 'issuetitle', 'journal', 'volume', 'number', 'pages', 'publisher', 'address', 'edition', 'chapter', 'institution', 'organization', 'school', 'series', 'crossref', 'abstract', 'howpublished', 'key', 'techtype', 'note');
+        
         echo "APA PRIMEROS PASOS";
+
+        // initial string
+        if ( $row['type'] === 'presentation' ) {
+            $string = '@misc{' . stripslashes($row['bibtex']) . ',' . chr(13) . chr(10);
+        }
+        else {
+            $string = '@' . stripslashes($row['type']) . '{' . stripslashes($row['bibtex']) . ',' . chr(13) . chr(10);
+        }
+        
+        // loop for all BibTeX fields
+        for ( $i = 2; $i < count($pub_fields); $i++ ) {
+            // replace html chars
+            if ( $pub_fields[$i] === 'author' || $pub_fields[$i] === 'title' ) {
+                $row[$pub_fields[$i]] = TP_HTML::convert_special_chars($row[$pub_fields[$i]]);
+            }
+            // go to the next if there is nothing
+            if ( !isset( $row[$pub_fields[$i]] ) || $row[$pub_fields[$i]] == '' || $row[$pub_fields[$i]] == '0000-00-00'  ) {
+                continue;
+            }
+            // prepare the fields
+            // year
+            elseif ( $pub_fields[$i] === 'date' ) {
+                $string .= 'year  = {' . $row['year'] . '},' . chr(13) . chr(10);
+                $string .= TP_Bibtex::prepare_bibtex_line($row[$pub_fields[$i]],$pub_fields[$i]);
+            }
+            // techtype
+            elseif ( $pub_fields[$i] === 'techtype' ) {
+                $string .= 'type = {' . $row[$pub_fields[$i]] . '},' . chr(13) . chr(10);
+            }
+            // patent: use address as location
+            elseif ( $pub_fields[$i] === 'address' && $row['type']  === 'patent' ) {
+                $string .= 'location = {' . $row[$pub_fields[$i]] . '},' . chr(13) . chr(10);
+            }
+            // abstract
+            elseif ( $pub_fields[$i] === 'abstract' || $pub_fields[$i] === 'title' ) {
+                $string .= TP_Bibtex::prepare_text($row[$pub_fields[$i]], $pub_fields[$i]);
+            }
+            // normal case
+            else {
+                $string .= TP_Bibtex::prepare_bibtex_line($row[$pub_fields[$i]],$pub_fields[$i]);
+            }
+            
+        }
+        
+        // Add month
+        if ( $row['type'] == 'booklet' ) {
+            $date = tp_datesplit( $row['date'] );
+            $string .= 'month = {' . $date[0][1] . '},' . chr(13) . chr(10);
+        }
+        
+        // Add teachPress/biblatex extensions
+        $string .= ',' . chr(13) . chr(10);
+        $string .= 'pubstate = {' . $row['status'] . '},' . chr(13) . chr(10);
+        $string .= 'tppubtype = {' . $row['type'] . '}' . chr(13) . chr(10);
+        $string .= '}' . chr(13) . chr(10);
+        
+        // Convert utf-8 chars
+        if ( $convert_bibtex === true ) {
+            $string = self::convert_utf8_to_bibtex($string);
+        }
+        return $string;
     }
 
     /**
