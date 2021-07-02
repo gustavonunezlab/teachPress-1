@@ -108,15 +108,10 @@ class TP_Bibtex {
 
     public static function get_single_publication_apa ($row, $all_tags = '', $convert_bibtex = false) {
         $string = '';
-        $pub_fields = array('type', 'bibtex', 'title', 'author', 'editor', 'url', 'doi', 'isbn', 'date', 'urldate', 'booktitle', 'issuetitle', 'journal', 'volume', 'number', 'pages', 'publisher', 'address', 'edition', 'chapter', 'institution', 'organization', 'school', 'series', 'crossref', 'abstract', 'howpublished', 'key', 'techtype', 'note');
+        $pub_fields = array('type', 'title', 'author', 'editor', 'date', 'booktitle', 'publisher');
 
         // initial string
-        if ( $row['type'] === 'presentation' ) {
-            $string = '@misc{' . stripslashes($row['bibtex']) . ',' . chr(13) . chr(10);
-        }
-        else {
-            $string = '@' . stripslashes($row['type']) . '{' . stripslashes($row['bibtex']) . ',' . chr(13) . chr(10);
-        }
+        $string = '@' . stripslashes($row['type']) . '{' . stripslashes($row['bibtex']) . ',' . chr(13) . chr(10);
         
         // loop for all BibTeX fields
         for ( $i = 2; $i < count($pub_fields); $i++ ) {
@@ -133,18 +128,6 @@ class TP_Bibtex {
             elseif ( $pub_fields[$i] === 'date' ) {
                 $string .= 'year  = {' . $row['year'] . '},' . chr(13) . chr(10);
                 $string .= TP_Bibtex::prepare_bibtex_line($row[$pub_fields[$i]],$pub_fields[$i]);
-            }
-            // techtype
-            elseif ( $pub_fields[$i] === 'techtype' ) {
-                $string .= 'type = {' . $row[$pub_fields[$i]] . '},' . chr(13) . chr(10);
-            }
-            // patent: use address as location
-            elseif ( $pub_fields[$i] === 'address' && $row['type']  === 'patent' ) {
-                $string .= 'location = {' . $row[$pub_fields[$i]] . '},' . chr(13) . chr(10);
-            }
-            // abstract
-            elseif ( $pub_fields[$i] === 'abstract' || $pub_fields[$i] === 'title' ) {
-                $string .= TP_Bibtex::prepare_text($row[$pub_fields[$i]], $pub_fields[$i]);
             }
             // normal case
             else {
