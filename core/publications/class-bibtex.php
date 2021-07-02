@@ -109,8 +109,6 @@ class TP_Bibtex {
     public static function get_single_publication_apa ($row, $all_tags = '', $convert_bibtex = false) {
         $string = '';
         $pub_fields = array('type', 'bibtex', 'title', 'author', 'editor', 'url', 'doi', 'isbn', 'date', 'urldate', 'booktitle', 'issuetitle', 'journal', 'volume', 'number', 'pages', 'publisher', 'address', 'edition', 'chapter', 'institution', 'organization', 'school', 'series', 'crossref', 'abstract', 'howpublished', 'key', 'techtype', 'note');
-        
-        echo "APA PRIMEROS PASOS";
 
         // initial string
         if ( $row['type'] === 'presentation' ) {
