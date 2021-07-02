@@ -358,7 +358,7 @@ class TP_Publication_Template_API
         $content .= TP_HTML_Publication_Template::get_info_container(nl2br(TP_Bibtex::get_single_publication_bibtex($row, $keywords, $settings['convert_bibtex'])), 'bibtex', $container_id);
 
         // div apa
-        $content .= TP_HTML_Publication_Template::get_info_container(nl2br(TP_Bibtex::get_single_publication_apa($row, $keywords, $settings['convert_apa'])), 'apa', $container_id);
+        $content .= TP_HTML_Publication_Template::get_info_container(nl2br(TP_Bibtex::get_single_publication_apa($row, $settings['convert_apa'])), 'apa', $container_id);
 
         // div abstract
         if ($row['abstract'] != '') {

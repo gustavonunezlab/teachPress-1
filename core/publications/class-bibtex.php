@@ -106,7 +106,7 @@ class TP_Bibtex {
         return $string;
     }
 
-    public static function get_single_publication_apa ($row, $all_tags = '', $convert_bibtex = false) {
+    public static function get_single_publication_apa ($row, $convert_bibtex = false) {
         $string = '';
         $pub_fields = array('type', 'title', 'author', 'editor', 'date', 'booktitle', 'publisher');
 
