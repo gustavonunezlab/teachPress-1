@@ -110,8 +110,6 @@ class TP_Bibtex {
         $string = '';
         $pub_fields = array('type', 'title', 'author', 'editor', 'date', 'booktitle', 'publisher');
 
-        // initial string
-        $string = stripslashes($row['bibtex']) . ',' . chr(13) . chr(10);
         
         // loop for all BibTeX fields
         for ( $i = 2; $i < count($pub_fields); $i++ ) {
@@ -126,7 +124,7 @@ class TP_Bibtex {
             // prepare the fields
             // year
             elseif ( $pub_fields[$i] === 'date' ) {
-                $string .= 'year  = {' . $row['year'] . '},' . chr(13) . chr(10);
+                $string .= '(' . $row['year'] . '),' . chr(13);
                 $string .= TP_Bibtex::prepare_bibtex_line($row[$pub_fields[$i]],$pub_fields[$i]);
             }
             // normal case
