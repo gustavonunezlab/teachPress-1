@@ -474,9 +474,6 @@ class TP_HTML_Publication_Template
             $is_button = true;
         }
 
-        //if with apa
-
-
         // link style
         if ($settings['link_style'] === 'inline' || $settings['link_style'] === 'direct') {
             $tag_string = $abstract . $url . $bibtex .$apa . $altmetric . $tag_string;

@@ -108,11 +108,8 @@ class TP_Bibtex {
 
     public static function get_single_publication_apa ($row, $convert_bibtex = false) {
         $string = '';
-        $pub_fields = array('type', 'title', 'author', 'editor', 'date', 'booktitle', 'publisher');
-
-        // initial string
-        $string = '@' . stripslashes($row['type']) . '{' . stripslashes($row['bibtex']) . ',' . chr(13) . chr(10);
-        
+        $pub_fields = array('title', 'author', 'editor', 'date', 'booktitle', 'publisher');
+  
         // loop for all BibTeX fields
         for ( $i = 2; $i < count($pub_fields); $i++ ) {
             // replace html chars
@@ -126,27 +123,14 @@ class TP_Bibtex {
             // prepare the fields
             // year
             elseif ( $pub_fields[$i] === 'date' ) {
-                $string .= 'year  = {' . $row['year'] . '},' . chr(13) . chr(10);
-                $string .= TP_Bibtex::prepare_bibtex_line($row[$pub_fields[$i]],$pub_fields[$i]);
+                $string .= '(' . $row['year'] . ')' . chr(13) . chr(10);
             }
             // normal case
             else {
-                $string .= TP_Bibtex::prepare_bibtex_line($row[$pub_fields[$i]],$pub_fields[$i]);
+                $string .= TP_Bibtex::prepare_apa_line($row[$pub_fields[$i]],$pub_fields[$i]);
             }
             
         }
-        
-        // Add month
-        if ( $row['type'] == 'booklet' ) {
-            $date = tp_datesplit( $row['date'] );
-            $string .= 'month = {' . $date[0][1] . '},' . chr(13) . chr(10);
-        }
-        
-        // Add teachPress/biblatex extensions
-        $string .= ',' . chr(13) . chr(10);
-        $string .= 'pubstate = {' . $row['status'] . '},' . chr(13) . chr(10);
-        $string .= 'tppubtype = {' . $row['type'] . '}' . chr(13) . chr(10);
-        $string .= '}' . chr(13) . chr(10);
         
         // Convert utf-8 chars
         if ( $convert_bibtex === true ) {
@@ -386,6 +370,14 @@ class TP_Bibtex {
         if ($input != '') {
             $input = ( $stripslashes === true ) ? stripslashes($input) : $input;
             return $fieldname . ' = {' . $input . '},' . chr(13) . chr(10);
+        }
+        return '';
+    }
+
+    public static function prepare_apa_line($input, $fieldname, $stripslashes = true) {
+        if ($input != '') {
+            $input = ( $stripslashes === true ) ? stripslashes($input) : $input;
+            return $fieldname . $input . ',' . chr(13) . chr(10);
         }
         return '';
     }
