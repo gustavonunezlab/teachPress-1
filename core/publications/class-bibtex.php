@@ -106,11 +106,11 @@ class TP_Bibtex {
         return $string;
     }
 
-    public static function get_single_publication_apa ($row, $convert_bibtex = false) {
+    public static function get_single_publication_apa ($row, $convert_apa = false) {
         $string = '';
         $pub_fields = array('title', 'author', 'editor', 'date', 'booktitle', 'publisher');
   
-        // loop for all BibTeX fields
+        // loop for all APA fields
         for ( $i = 2; $i < count($pub_fields); $i++ ) {
             // replace html chars
             if ( $pub_fields[$i] === 'author' || $pub_fields[$i] === 'title' ) {
@@ -127,13 +127,13 @@ class TP_Bibtex {
             }
             // normal case
             else {
-                $string .= TP_Bibtex::prepare_apa_line($row[$pub_fields[$i]]);
+                $string .= $row[$pub_fields[$i]] . ',' . chr(13) . chr(10);
             }
             
         }
         
         // Convert utf-8 chars
-        if ( $convert_bibtex === true ) {
+        if ( $convert_apa === true ) {
             $string = self::convert_utf8_to_bibtex($string);
         }
         return $string;
@@ -370,14 +370,6 @@ class TP_Bibtex {
         if ($input != '') {
             $input = ( $stripslashes === true ) ? stripslashes($input) : $input;
             return $fieldname . ' = {' . $input . '},' . chr(13) . chr(10);
-        }
-        return '';
-    }
-
-    public static function prepare_apa_line($input, $stripslashes = true) {
-        if ($input != '') {
-            $input = ( $stripslashes === true ) ? stripslashes($input) : $input;
-            return $input . ',' . chr(13) . chr(10);
         }
         return '';
     }
