@@ -127,7 +127,7 @@ class TP_Bibtex {
             }
             // normal case
             else {
-                $string .= TP_Bibtex::prepare_apa_line($row[$pub_fields[$i]],$pub_fields[$i]);
+                $string .= TP_Bibtex::prepare_apa_line($row[$pub_fields[$i]]);
             }
             
         }
@@ -374,10 +374,10 @@ class TP_Bibtex {
         return '';
     }
 
-    public static function prepare_apa_line($input, $fieldname, $stripslashes = true) {
+    public static function prepare_apa_line($input, $stripslashes = true) {
         if ($input != '') {
             $input = ( $stripslashes === true ) ? stripslashes($input) : $input;
-            return $fieldname . $input . ',' . chr(13) . chr(10);
+            return $input . ',' . chr(13) . chr(10);
         }
         return '';
     }
