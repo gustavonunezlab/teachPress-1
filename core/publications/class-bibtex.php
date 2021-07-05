@@ -108,11 +108,11 @@ class TP_Bibtex {
 
     public static function get_single_publication_apa ($row, $convert_bibtex = false) {
         $string = '';
-        $pub_fields = array('type', 'title', 'author', 'editor', 'date', 'booktitle', 'publisher');
+        $pub_fields = array('title', 'author', 'editor', 'date', 'booktitle', 'publisher');
 
         
         // loop for all BibTeX fields
-        for ( $i = 2; $i < count($pub_fields); $i++ ) {
+        for ( $i = 0; $i < count($pub_fields); $i++ ) {
             // replace html chars
             if ( $pub_fields[$i] === 'author' || $pub_fields[$i] === 'title' ) {
                 $row[$pub_fields[$i]] = TP_HTML::convert_special_chars($row[$pub_fields[$i]]);
