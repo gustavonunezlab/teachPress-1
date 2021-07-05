@@ -421,6 +421,7 @@ class TP_HTML_Publication_Template
         $abstract = '';
         $url = '';
         $bibtex = '';
+        $apa = '';
         $settings['use_span'] = true;
         $settings['meta_label_in'] = $template_settings['meta_label_in'];
         $tag_string = '';
@@ -473,15 +474,15 @@ class TP_HTML_Publication_Template
 
         //if with apa
         if ($settings['show_apa'] === true) {
-            $bibtex = self::get_info_button(__('APA', 'teachpress'), __('Show APA entry', 'teachpress'), 'apa', $container_id) . $separator;
+            $apa = self::get_info_button(__('APA', 'teachpress'), __('Show APA entry', 'teachpress'), 'apa', $container_id) . $separator;
             $is_button = true;
         }
 
         // link style
         if ($settings['link_style'] === 'inline' || $settings['link_style'] === 'direct') {
-            $tag_string = $abstract . $url . $bibtex . $altmetric . $tag_string;
+            $tag_string = $abstract . $url . $bibtex .$apa . $altmetric . $tag_string;
         } else {
-            $tag_string = $abstract . $bibtex . $altmetric . $tag_string . $url;
+            $tag_string = $abstract . $bibtex . $apa . $altmetric . $tag_string . $url;
         }
 
         // load template interface
