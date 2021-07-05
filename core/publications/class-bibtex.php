@@ -124,7 +124,7 @@ class TP_Bibtex {
             // year
             elseif ( $pub_fields[$i] === 'date' ) {
                 $string .= '(' . $row['year'] . ')' . chr(13) . chr(10);
-                $string .= TP_Bibtex::prepare_bibtex_line($row[$pub_fields[$i]],$pub_fields[$i])
+                $string .= TP_Bibtex::prepare_bibtex_line($row[$pub_fields[$i]],$pub_fields[$i]);
             }
             // normal case
             else {
