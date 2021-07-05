@@ -106,11 +106,14 @@ class TP_Bibtex {
         return $string;
     }
 
-    public static function get_single_publication_apa ($row, $convert_apa = false) {
+    public static function get_single_publication_apa ($row, $convert_bibtex = false) {
         $string = '';
-        $pub_fields = array('title', 'author', 'editor', 'date', 'booktitle', 'publisher');
-  
-        // loop for all APA fields
+        $pub_fields = array('type', 'title', 'author', 'editor', 'date', 'booktitle', 'publisher');
+
+        // initial string
+        $string = stripslashes($row['bibtex']) . ',' . chr(13) . chr(10);
+        
+        // loop for all BibTeX fields
         for ( $i = 2; $i < count($pub_fields); $i++ ) {
             // replace html chars
             if ( $pub_fields[$i] === 'author' || $pub_fields[$i] === 'title' ) {
@@ -123,19 +126,25 @@ class TP_Bibtex {
             // prepare the fields
             // year
             elseif ( $pub_fields[$i] === 'date' ) {
-                $string .= '(' . $row['year'] . ')' . chr(13) . chr(10);
+                $string .= 'year  = {' . $row['year'] . '},' . chr(13) . chr(10);
                 $string .= TP_Bibtex::prepare_bibtex_line($row[$pub_fields[$i]],$pub_fields[$i]);
             }
             // normal case
             else {
-                $string .= $row[$pub_fields[$i]] . ',' . chr(13) . chr(10);
                 $string .= TP_Bibtex::prepare_bibtex_line($row[$pub_fields[$i]],$pub_fields[$i]);
             }
             
         }
         
+
+        // Add teachPress/biblatex extensions
+        // $string .= ',' . chr(13) . chr(10);
+        // $string .= 'pubstate = {' . $row['status'] . '},' . chr(13) . chr(10);
+        // $string .= 'tppubtype = {' . $row['type'] . '}' . chr(13) . chr(10);
+        // $string .= '}' . chr(13) . chr(10);
+        
         // Convert utf-8 chars
-        if ( $convert_apa === true ) {
+        if ( $convert_bibtex === true ) {
             $string = self::convert_utf8_to_bibtex($string);
         }
         return $string;
