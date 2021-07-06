@@ -106,7 +106,7 @@ class TP_Bibtex {
         return $string;
     }
 
-    public static function get_single_publication_apa ($row, $convert_bibtex = false) {
+    public static function get_single_publication_apa ($row, $convert_apa = false) {
         $string = '';
         $pub_fields = array('title', 'author', 'editor', 'date', 'booktitle', 'publisher');
 
@@ -142,7 +142,7 @@ class TP_Bibtex {
         // $string .= '}' . chr(13) . chr(10);
         
         // Convert utf-8 chars
-        if ( $convert_bibtex === true ) {
+        if ( $convert_apa === true ) {
             $string = self::convert_utf8_to_bibtex($string);
         }
         return $string;
