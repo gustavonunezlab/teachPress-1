@@ -358,7 +358,7 @@ class TP_Publication_Template_API
         $content .= TP_HTML_Publication_Template::get_info_container(nl2br(TP_Bibtex::get_single_publication_bibtex($row, $keywords, $settings['convert_bibtex'])), 'bibtex', $container_id);
 
         // div apa
-        $content .= TP_HTML_Publication_Template::get_info_container(nl2br(TP_Bibtex::get_single_publication_apa($row, $settings['convert_bibtex'])), 'apa', $container_id);
+        $content .= TP_HTML_Publication_Template::get_info_container(nl2br(TP_Bibtex::get_single_publication_apa($row, $settings['convert_apa'])), 'bibtex', $container_id);
 
         // div abstract
         if ($row['abstract'] != '') {
@@ -470,14 +470,13 @@ class TP_HTML_Publication_Template
         if ($settings['show_bibtex'] === true) {
             $bibtex = self::get_info_button(__('BibTeX', 'teachpress'), __('Show BibTeX entry', 'teachpress'), 'bibtex', $container_id) . $separator;
             $is_button = true;
-            $apa = self::get_info_button(__('APA', 'teachpress'), __('Show APA entry', 'teachpress'), 'apa', $container_id) . $separator;
+            $apa = self::get_info_button(__('APA', 'teachpress'), __('Show APA entry', 'teachpress'), 'bibtex', $container_id) . $separator;
             $is_button = true;
-            
         }
 
         // link style
         if ($settings['link_style'] === 'inline' || $settings['link_style'] === 'direct') {
-            $tag_string = $abstract . $url . $bibtex . $apa . $altmetric . $tag_string;
+            $tag_string = $abstract . $url . $bibtex .$apa . $altmetric . $tag_string;
         } else {
             $tag_string = $abstract . $bibtex . $apa . $altmetric . $tag_string . $url;
         }
