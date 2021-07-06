@@ -110,7 +110,10 @@ class TP_Bibtex {
         $string = '';
         $pub_fields = array('title', 'author', 'editor', 'date', 'booktitle', 'publisher');
 
-        
+        $string .= $row['author'] . ',' . chr(13) . chr(10);
+        $string .= $row['title'] . ',' . chr(13) . chr(10);
+        $string .= '(' . $row['year'] . ')';
+
         // loop for all BibTeX fields
         for ( $i = 0; $i < count($pub_fields); $i++ ) {
             // replace html chars
