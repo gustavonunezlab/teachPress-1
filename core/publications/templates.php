@@ -470,13 +470,15 @@ class TP_HTML_Publication_Template
         if ($settings['show_bibtex'] === true) {
             $bibtex = self::get_info_button(__('BibTeX', 'teachpress'), __('Show BibTeX entry', 'teachpress'), 'bibtex', $container_id) . $separator;
             $is_button = true;
-            $apa = self::get_info_button(__('APA', 'teachpress'), __('Show APA entry', 'teachpress'), 'apa', $container_id) . $separator;
-            $is_button = true;
+            if ($settings['show_apa'] === true) {
+                $apa = self::get_info_button(__('APA', 'teachpress'), __('Show APA entry', 'teachpress'), 'apa', $container_id) . $separator;
+                $is_button = true;
+            }
         }
 
         // link style
         if ($settings['link_style'] === 'inline' || $settings['link_style'] === 'direct') {
-            $tag_string = $abstract . $url . $bibtex .$apa . $altmetric . $tag_string;
+            $tag_string = $abstract . $url . $bibtex . $apa . $altmetric . $tag_string;
         } else {
             $tag_string = $abstract . $bibtex . $apa . $altmetric . $tag_string . $url;
         }
