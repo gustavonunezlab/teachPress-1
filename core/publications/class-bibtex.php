@@ -127,9 +127,7 @@ class TP_Bibtex
 
         if ($row['journal'] != '') {
             $string .= $row['journal'] . ', ';
-        } else {
-            continue;
-        }
+        } 
 
         if ($row['volume'] != '') {
             $string .= $row['volume'];
