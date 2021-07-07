@@ -114,7 +114,7 @@ class TP_Bibtex
         $string = '';
 
         for ($i = 0; $i < count($array) - 1; $i++) {
-            $string .= $array[$i] . ',';
+            $string .= $array[$i] . ', ';
         }
 
         $string .= '& ' . $array[$final_author];
@@ -139,7 +139,7 @@ class TP_Bibtex
         }
 
         if ($row['pages'] != '') {
-            $string .= ', ' . $row['pages'] . '. ';
+            $string .= $row['pages'] . '.';
         }
 
         // Convert utf-8 chars
