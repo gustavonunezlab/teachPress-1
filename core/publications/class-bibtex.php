@@ -135,8 +135,9 @@ class TP_Bibtex
             $string .= $row['volume'];
             if ($row['pages'] != '') {
                 $string .= ', ';
-            }else {
+            } else {
                 $string .= '.';
+            }
         }
 
         if ($row['pages'] != '') {
