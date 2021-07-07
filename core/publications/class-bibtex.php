@@ -110,12 +110,20 @@ class TP_Bibtex
     {
         $string = '';
         // $pub_fields = array('title', 'author', 'editor', 'booktitle', 'publisher');
+        $totalAuthor = count($row['author']);
 
-        $string .= $row['author'] . ',' . chr(13) . chr(10);
-        $string .= $row['title'] . ',' . chr(13) . chr(10);
+        for ($i = 0; $i < count($row['author']) - 1; $i++) {
+            $string .= $row['author'[$i]] . ', ';
+        }
+
+        $string .= $row['author'[$totalAuthor]] . '.' . chr(13) . chr(10);
+
+
         if ($row['year'] != '') {
             $string .= '(' . $row['year'] . ')';
         }
+        $string .= $row['title'] . ',' . chr(13) . chr(10);
+
         if ($row['editor'] != '') {
             $string .= $row['editor'] . ',' . chr(13) . chr(10);
         }
