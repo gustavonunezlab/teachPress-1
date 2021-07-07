@@ -113,24 +113,36 @@ class TP_Bibtex
         $final_author = count($array) - 1;
         $string = '';
 
-        for ($i = 0; $i < count($array) - 1; $i++){
+        for ($i = 0; $i < count($array) - 1; $i++) {
             $string .= $array[$i] . ',';
         }
 
-        $string .= $array[$final_author] . '. ';
+        $string .= '& ' . $array[$final_author];
 
         if ($row['year'] != '') {
             $string .= '(' . $row['year'] . '). ';
         }
+
         $string .= $row['title'] . '. ';
 
         if ($row['journal'] != '') {
-            $string .= $row['journal'] . ',' . chr(13) . chr(10);
+            $string .= $row['journal'] . ', ';
+        } else {
+            continue;
         }
+
         if ($row['volume'] != '') {
-            $string .= $row['volume'] . '. ';
+            $string .= $row['volume'];
+            if ($row['pages'] != '') {
+                $string .= ', ';
+            }else {
+                $string .= '.';
         }
-        
+
+        if ($row['pages'] != '') {
+            $string .= ', ' . $row['pages'] . '. ';
+        }
+
         // Convert utf-8 chars
         if ($convert_apa === true) {
             $string = self::convert_utf8_to_bibtex($string);
