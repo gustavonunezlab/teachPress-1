@@ -106,10 +106,10 @@ class TP_Bibtex
         return $string;
     }
 
-    public static function get_single_publication_apa($row, $convert_apa = false)
+    public static function get_single_publication_apa($row, $all_authors, $convert_apa = false)
     {
         $string = '';
-        $string .= $row['all_authors'] . '. ';
+        $string .= $all_authors . '. ';
 
         if ($row['year'] != '') {
             $string .= '(' . $row['year'] . '). ';
