@@ -110,7 +110,7 @@ class TP_Bibtex
     {
 
         $array = explode(";", $all_authors);
-        $final_author = count($array);
+        $final_author = count($array) - 1;
         $string = '';
 
         for ($i = 0; $i < count($array) - 1; $i++){
