@@ -109,59 +109,26 @@ class TP_Bibtex
     public static function get_single_publication_apa($row, $convert_apa = false)
     {
         $string = '';
-        // $pub_fields = array('title', 'author', 'editor', 'booktitle', 'publisher');
         $totalAuthor = count($row['author']);
 
         for ($i = 0; $i < count($row['author']) - 1; $i++) {
-            $string .= $row['author'[$i]] . ', ';
+            $string .= $row['author'][$i] . ', ';
         }
 
-        $string .= $row['author'[$totalAuthor]] . '.' . chr(13) . chr(10);
-
+        $string .= $row['author'][$totalAuthor] . '. ';
 
         if ($row['year'] != '') {
-            $string .= '(' . $row['year'] . ')';
+            $string .= '(' . $row['year'] . '). ';
         }
-        $string .= $row['title'] . ',' . chr(13) . chr(10);
+        $string .= $row['title'] . '. ';
 
-        if ($row['editor'] != '') {
-            $string .= $row['editor'] . ',' . chr(13) . chr(10);
+        if ($row['journal'] != '') {
+            $string .= $row['journal'] . ',' . chr(13) . chr(10);
         }
-        if ($row['booktitle'] != '') {
-            $string .= $row['booktitle'] . ',' . chr(13) . chr(10);
+        if ($row['volume'] != '') {
+            $string .= $row['volume'] . '. ';
         }
-        if ($row['publisher'] != '') {
-            $string .= $row['publisher'] . ',' . chr(13) . chr(10);
-        }
-        // loop for all BibTeX fields
-        // for ($i = 0; $i < count($pub_fields); $i++) {
-        //     // replace html chars
-        //     if ($pub_fields[$i] === 'author' || $pub_fields[$i] === 'title') {
-        //         $row[$pub_fields[$i]] = TP_HTML::convert_special_chars($row[$pub_fields[$i]]);
-        //     }
-        //     // go to the next if there is nothing
-        //     if (!isset($row[$pub_fields[$i]]) || $row[$pub_fields[$i]] == '' || $row[$pub_fields[$i]] == '0000-00-00') {
-        //         continue;
-        //     }
-        //     // prepare the fields
-        //     // year
-        //     elseif ($pub_fields[$i] === 'date') {
-        //         $string .= '(' . $row['year'] . '),' . chr(13);
-        //         $string .= TP_Bibtex::prepare_bibtex_line($row[$pub_fields[$i]], $pub_fields[$i]);
-        //     }
-        //     // normal case
-        //     else {
-        //         $string .= TP_Bibtex::prepare_bibtex_line($row[$pub_fields[$i]], $pub_fields[$i]);
-        //     }
-        // }
-
-
-        // Add teachPress/biblatex extensions
-        // $string .= ',' . chr(13) . chr(10);
-        // $string .= 'pubstate = {' . $row['status'] . '},' . chr(13) . chr(10);
-        // $string .= 'tppubtype = {' . $row['type'] . '}' . chr(13) . chr(10);
-        // $string .= '}' . chr(13) . chr(10);
-
+        
         // Convert utf-8 chars
         if ($convert_apa === true) {
             $string = self::convert_utf8_to_bibtex($string);
