@@ -106,15 +106,15 @@ class TP_Bibtex
         return $string;
     }
 
-    public static function get_single_publication_apa($row, $all_authors, $convert_apa = false)
+    public static function get_single_publication_apa($row, $convert_apa = false)
     {
 
-        $array = explode(";", $all_authors);
+        $array = explode("and", $row['author']);
         $final_author = count($array) - 1;
         $string = '';
 
         for ($i = 0; $i < count($array) - 1; $i++){
-            $string .= $array[$i] . ', ';
+            $string .= $array[$i] . ',';
         }
 
         $string .= $array[$final_author] . '. ';
