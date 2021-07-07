@@ -108,8 +108,16 @@ class TP_Bibtex
 
     public static function get_single_publication_apa($row, $all_authors, $convert_apa = false)
     {
+
+        $array = explode(";", $all_authors);
+        $final_author = count($array);
         $string = '';
-        $string .= $all_authors . '. ';
+
+        for ($i = 0; $i < count($array) - 1; $i++){
+            $string .= $array[$i] . ', ';
+        }
+
+        $string .= $array[$final_author] . '. ';
 
         if ($row['year'] != '') {
             $string .= '(' . $row['year'] . '). ';
