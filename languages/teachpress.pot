@@ -2652,6 +2652,10 @@ msgstr ""
 msgid "Show BibTeX entry"
 msgstr ""
 
+#: core/templates.php:356
+msgid "Show APA entry"
+msgstr ""
+
 #: core/templates.php:417
 msgid "Close"
 msgstr ""

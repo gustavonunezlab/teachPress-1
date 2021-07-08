@@ -473,7 +473,7 @@ class TP_HTML_Publication_Template
         }
 
         if ($settings['show_bibtex'] === true) {
-            $apa = self::get_info_button(__('APA', 'teachpress'), __('Mostrar entrada APA', 'teachpress'), 'apa', $container_id) . $separator;
+            $apa = self::get_info_button(__('APA', 'teachpress'), __('Show APA entry', 'teachpress'), 'apa', $container_id) . $separator;
             $is_button = true;
         }
 
