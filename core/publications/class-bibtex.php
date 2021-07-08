@@ -126,8 +126,10 @@ class TP_Bibtex
         $string .= $row['title'] . '. ';
 
         if ($row['journal'] != '') {
-            $string .= $row['journal'] . ', ';
-        } 
+            $journal = self::wrapTag($row['journal']);
+
+            $string .= $journal . ', ';
+        }
 
         if ($row['volume'] != '') {
             $string .= $row['volume'];
@@ -147,6 +149,11 @@ class TP_Bibtex
             $string = self::convert_utf8_to_bibtex($string);
         }
         return $string;
+    }
+
+    public static function wrapTag($inVal)
+    {
+        return "<i>" . $inVal . "</i>";
     }
 
     /**
