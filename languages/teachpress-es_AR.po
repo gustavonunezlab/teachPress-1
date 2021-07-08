@@ -2630,7 +2630,7 @@ msgid "Show BibTeX entry"
 msgstr "Mostrar entrada BibTeX "
 
 # @ teachpress
-#: core/templates.php:471
+#: core/class-bibtex.php:201 core/class-bibtex.php:204
 msgid "Show APA entry"
 msgstr "Mostrar entrada APA"
 
