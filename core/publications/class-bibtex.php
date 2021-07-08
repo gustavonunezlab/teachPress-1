@@ -126,13 +126,14 @@ class TP_Bibtex
         $string .= $row['title'] . '. ';
 
         if ($row['journal'] != '') {
-            $journal = self::wrapTag($row['journal']);
-
+            $journal = self::cursiveTag($row['journal']);
             $string .= $journal . ', ';
         }
 
         if ($row['volume'] != '') {
-            $string .= $row['volume'];
+            $volume = self::cursiveTag($row['volume']);
+
+            $string .= $volume;
             if ($row['pages'] != '') {
                 $string .= ', ';
             } else {
@@ -141,7 +142,8 @@ class TP_Bibtex
         }
 
         if ($row['pages'] != '') {
-            $string .= $row['pages'] . '.';
+            $pages = self::cursiveTag($row['pages']);
+            $string .= $pages . '.';
         }
 
         // Convert utf-8 chars
@@ -151,7 +153,8 @@ class TP_Bibtex
         return $string;
     }
 
-    public static function wrapTag($inVal)
+    // Tags for cursive letter
+    public static function cursiveTag($inVal)
     {
         return "<i>" . $inVal . "</i>";
     }
