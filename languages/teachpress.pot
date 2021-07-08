@@ -1020,11 +1020,6 @@ msgstr ""
 msgid "Bulk actions"
 msgstr ""
 
-#: admin/edit-tags.php:187 admin/show-authors.php:194
-#: admin/show-publications.php:570 admin/show-students.php:238
-msgid "entry"
-msgstr ""
-
 #: admin/edit-tags.php:190 admin/show-authors.php:197
 #: admin/show-publications.php:573 admin/show-students.php:241
 #: core/general.php:286 core/general.php:289
