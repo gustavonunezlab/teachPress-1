@@ -479,7 +479,7 @@ class TP_HTML_Publication_Template
 
         // link style
         if ($settings['link_style'] === 'inline' || $settings['link_style'] === 'direct') {
-            $tag_string = $abstract . $url . $bibtex .$apa . $altmetric . $tag_string;
+            $tag_string = $abstract . $url . $bibtex . $apa . $altmetric . $tag_string;
         } else {
             $tag_string = $abstract . $bibtex . $apa . $altmetric . $tag_string . $url;
         }
@@ -646,7 +646,7 @@ class TP_HTML_Publication_Template
         $s = '<div class="tp_' . $type . '" id="tp_' . $type . '_' . $container_id . '" style="display:none;">';
         if ($type === 'bibtex') {
             $s .= '<div class="tp_' . $type . '_entry"><pre>' . $content . '</pre></div>';
-        }
+        } else 
         if ($type === 'apa') {
             $s .= '<div class="tp_' . $type . '_entry"><pre>' . $content . '</pre></div>';
         } else {
